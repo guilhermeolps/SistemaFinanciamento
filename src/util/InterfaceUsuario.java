@@ -1,4 +1,5 @@
 package util;
+
 import java.util.Scanner;
 
 public class InterfaceUsuario {
@@ -9,11 +10,11 @@ public class InterfaceUsuario {
         double valorImovel;
 
         do {
-            System.out.print("Digite o valor do imóvel: ");
+            System.out.print("Digite o valor do imovel: ");
             valorImovel = entrada.nextDouble();
 
             if (valorImovel <= 0) {
-                System.out.println("Erro: o valor do imóvel deve ser maior que zero.");
+                System.out.println("Erro: o valor do imovel deve ser maior que zero.");
             }
 
         } while (valorImovel <= 0);
@@ -51,5 +52,30 @@ public class InterfaceUsuario {
         } while (taxaJuros <= 0);
 
         return taxaJuros;
+    }
+
+    public double pedirAreaConstruida() {
+        System.out.print("Digite a area construida (m2): ");
+        return entrada.nextDouble();
+    }
+
+    public double pedirAreaTerreno() {
+        System.out.print("Digite a area do terreno (m2): ");
+        return entrada.nextDouble();
+    }
+
+    public int pedirVagasGaragem() {
+        System.out.print("Digite o numero de vagas na garagem: ");
+        return entrada.nextInt();
+    }
+
+    public int pedirAndar() {
+        System.out.print("Digite o numero do andar: ");
+        return entrada.nextInt();
+    }
+
+    public String pedirTipoZona() {
+        System.out.print("Digite o tipo de zona (residencial ou comercial): ");
+        return entrada.next();
     }
 }
