@@ -1,5 +1,7 @@
 package modelo;
 
+import util.AumentoMaiorDoqueJurosException;
+
 public abstract class Financiamento {
 
     private double valorImovel;
@@ -24,13 +26,13 @@ public abstract class Financiamento {
         return taxaJurosAnual;
     }
 
-    public abstract double calcularPagamentoMensal();
+    public abstract double calcularPagamentoMensal() throws AumentoMaiorDoqueJurosException;
 
-    public double calcularTotalPagamento() {
+    public double calcularTotalPagamento() throws AumentoMaiorDoqueJurosException {
         return calcularPagamentoMensal() * this.prazoFinanciamento * 12;
     }
 
-    public void mostrarDadosFinanciamento() {
+    public void mostrarDadosFinanciamento() throws AumentoMaiorDoqueJurosException {
         System.out.println("\n----- DADOS DO FINANCIAMENTO -----");
         System.out.println(String.format("Valor do imovel: R$ %.2f", getValorImovel()));
         System.out.println("Prazo: " + getPrazoFinanciamento() + " anos");

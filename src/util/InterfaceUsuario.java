@@ -4,78 +4,108 @@ import java.util.Scanner;
 
 public class InterfaceUsuario {
 
-    Scanner entrada = new Scanner(System.in);
+    private final Scanner entrada = new Scanner(System.in);
 
     public double pedirValorImovel() {
-        double valorImovel;
+        while (true) {
+            try {
+                double valorImovel = lerDouble("Digite o valor do imovel: ");
 
-        do {
-            System.out.print("Digite o valor do imovel: ");
-            valorImovel = entrada.nextDouble();
+                if (valorImovel <= 0) {
+                    throw new IllegalArgumentException("o valor do imovel deve ser maior que zero.");
+                }
 
-            if (valorImovel <= 0) {
-                System.out.println("Erro: o valor do imovel deve ser maior que zero.");
+                return valorImovel;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
             }
-
-        } while (valorImovel <= 0);
-
-        return valorImovel;
+        }
     }
 
     public int pedirPrazoFinanciamento() {
-        int prazoFinanciamento;
+        while (true) {
+            try {
+                int prazoFinanciamento = lerInteiro("Digite o prazo do financiamento (anos): ");
 
-        do {
-            System.out.print("Digite o prazo do financiamento (anos): ");
-            prazoFinanciamento = entrada.nextInt();
+                if (prazoFinanciamento <= 0) {
+                    throw new IllegalArgumentException("o prazo deve ser maior que zero.");
+                }
 
-            if (prazoFinanciamento <= 0) {
-                System.out.println("Erro: o prazo deve ser maior que zero.");
+                return prazoFinanciamento;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
             }
-
-        } while (prazoFinanciamento <= 0);
-
-        return prazoFinanciamento;
+        }
     }
 
     public double pedirTaxaJuros() {
-        double taxaJuros;
+        while (true) {
+            try {
+                double taxaJuros = lerDouble("Digite a taxa de juros anual: ");
 
-        do {
-            System.out.print("Digite a taxa de juros anual: ");
-            taxaJuros = entrada.nextDouble();
+                if (taxaJuros <= 0) {
+                    throw new IllegalArgumentException("a taxa de juros deve ser maior que zero.");
+                }
 
-            if (taxaJuros <= 0) {
-                System.out.println("Erro: a taxa de juros deve ser maior que zero.");
+                return taxaJuros;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
             }
-
-        } while (taxaJuros <= 0);
-
-        return taxaJuros;
+        }
     }
 
     public double pedirAreaConstruida() {
-        System.out.print("Digite a area construida (m2): ");
-        return entrada.nextDouble();
+        return lerDouble("Digite a area construida (m2): ");
     }
 
     public double pedirAreaTerreno() {
-        System.out.print("Digite a area do terreno (m2): ");
-        return entrada.nextDouble();
+        return lerDouble("Digite a area do terreno (m2): ");
     }
 
     public int pedirVagasGaragem() {
-        System.out.print("Digite o numero de vagas na garagem: ");
-        return entrada.nextInt();
+        return lerInteiro("Digite o numero de vagas na garagem: ");
     }
 
     public int pedirAndar() {
-        System.out.print("Digite o numero do andar: ");
-        return entrada.nextInt();
+        return lerInteiro("Digite o numero do andar: ");
     }
 
     public String pedirTipoZona() {
-        System.out.print("Digite o tipo de zona (residencial ou comercial): ");
-        return entrada.next();
+        while (true) {
+            try {
+                System.out.print("Digite o tipo de zona (residencial ou comercial): ");
+                String tipoZona = entrada.nextLine().trim().toLowerCase();
+
+                if (!tipoZona.equals("residencial") && !tipoZona.equals("comercial")) {
+                    throw new IllegalArgumentException("use residencial ou comercial.");
+                }
+
+                return tipoZona;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+    }
+
+    private int lerInteiro(String mensagem) {
+        while (true) {
+            try {
+                System.out.print(mensagem);
+                return Integer.parseInt(entrada.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: valor inválido. Digite apenas números inteiros.");
+            }
+        }
+    }
+
+    private double lerDouble(String mensagem) {
+        while (true) {
+            try {
+                System.out.print(mensagem);
+                return Double.parseDouble(entrada.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: valor inválido. Digite apenas números.");
+            }
+        }
     }
 }

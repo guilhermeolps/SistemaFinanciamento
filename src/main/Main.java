@@ -7,6 +7,7 @@ import modelo.Apartamento;
 import modelo.Casa;
 import modelo.Financiamento;
 import modelo.Terreno;
+import util.AumentoMaiorDoqueJurosException;
 import util.InterfaceUsuario;
 
 public class Main {
@@ -48,7 +49,11 @@ public class Main {
 
         for (Financiamento financiamento : listaDeFinanciamentos) {
             totalImoveis += financiamento.getValorImovel();
-            totalFinanciamentos += financiamento.calcularTotalPagamento();
+            try {
+                totalFinanciamentos += financiamento.calcularTotalPagamento();
+            } catch (AumentoMaiorDoqueJurosException e) {
+                System.out.println("Erro ao calcular o financiamento: " + e.getMessage());
+            }
         }
 
         System.out.println("\n----- RESUMO -----");

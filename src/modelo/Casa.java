@@ -1,5 +1,7 @@
 package modelo;
 
+import util.AumentoMaiorDoqueJurosException;
+
 public class Casa extends Financiamento {
 
     private double tamanhoAreaConstruida;
@@ -13,9 +15,18 @@ public class Casa extends Financiamento {
     }
 
     @Override
-    public double calcularPagamentoMensal() {
+    public double calcularPagamentoMensal() throws AumentoMaiorDoqueJurosException {
         double pagamento = (getValorImovel() / (getPrazoFinanciamento() * 12))
                 * (1 + (getTaxaJurosAnual() / 12));
-        return pagamento + 240;
+
+        double valorAcrescimo = 80;
+        double jurosMensal = (getValorImovel() * getTaxaJurosAnual()) / 12;
+
+        if (valorAcrescimo > (jurosMensal / 2)) {
+            throw new AumentoMaiorDoqueJurosException(
+                    "O acréscimo de R$ 80 não pode ser maior que a metade dos juros mensais.");
+        }
+
+        return pagamento + valorAcrescimo;
     }
 }
